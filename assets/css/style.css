@@ -1,0 +1,13 @@
+body {
+    margin: 50px; 
+}
+.train-table th,
+td {
+  display: inline-block;
+  width: 20%;
+}
+
+.card-header {
+    font-weight: bold;
+    background-color: lightblue;
+}
