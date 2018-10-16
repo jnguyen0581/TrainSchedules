@@ -7,6 +7,7 @@ var config = {
   storageBucket: "clickbuttoncounter-f9be1.appspot.com",
   messagingSenderId: "112657138201"
 };
+
 firebase.initializeApp(config);
 
 var database = firebase.database();
