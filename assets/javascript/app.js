@@ -1,27 +1,29 @@
 // 1. Initialize Firebase
 var config = {
-  apiKey: "AIzaSyCo1htjptvKu2Xe3J7a_XF2OHd17dLUQNU",
-  authDomain: "trainschedules-6b2f2.firebaseapp.com",
-  databaseURL: "https://trainschedules-6b2f2.firebaseio.com",
-  projectId: "trainschedules-6b2f2",
-  storageBucket: "trainschedules-6b2f2.appspot.com",
-  messagingSenderId: "696583179716"
+  apiKey: "AIzaSyCv_shjT0bVot-DGyzWL5hhpF5fjqCx8lE",
+    authDomain: "traintrain-8950b.firebaseapp.com",
+    databaseURL: "https://traintrain-8950b.firebaseio.com",
+    projectId: "traintrain-8950b",
+    storageBucket: "traintrain-8950b.appspot.com",
+    messagingSenderId: "265291646366"
 };
 firebase.initializeApp(config);
-// 
+
 var database = firebase.database();
 
 // 2. Current time
+var currentTime = moment();
+$("#current-time").text((moment(currentTime).format("HH:mm")));
 
 // 3. Button for adding Train
 $("#add-train-btn").on("click", function (event) {
   event.preventDefault();
 
-  // Grabs user input
+  // Grabs train input
   var trainName = $("#train-name-input").val().trim();
-  var trainDestination = $("#train-destination-input").val();
-  var firstTrainTime = moment($("#firsttraintime-input").val(), "HH:mm").format("X");
-  var trainFrequency = $("#frequency-input").val();
+  var trainDestination = $("#destination-input").val().trim();
+  var firstTrainTime = $("#firsttraintime-input").val().trim();
+  var trainFrequency = $("#frequency-input").val().trim();
 
   // Creates local "temporary" object for holding train data
   var newTrain = {
@@ -41,3 +43,10 @@ console.log(newTrain.frequency);
 
 alert("Train added");
 });
+
+//Clear all the text-boxes
+
+//Create data base event for adding trains to the database
+
+// store evething into a variable
+
