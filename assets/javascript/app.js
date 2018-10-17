@@ -1,14 +1,14 @@
 // 1. Initialize Firebase
 var config = {
-  apiKey: "AIzaSyBI95Ug45ZxuPHB_A9-hZAVQTO_ExQLYtU",
-  authDomain: "clickbuttoncounter-f9be1.firebaseapp.com",
-  databaseURL: "https://clickbuttoncounter-f9be1.firebaseio.com",
-  projectId: "clickbuttoncounter-f9be1",
-  storageBucket: "clickbuttoncounter-f9be1.appspot.com",
-  messagingSenderId: "112657138201"
+  apiKey: "AIzaSyCo1htjptvKu2Xe3J7a_XF2OHd17dLUQNU",
+  authDomain: "trainschedules-6b2f2.firebaseapp.com",
+  databaseURL: "https://trainschedules-6b2f2.firebaseio.com",
+  projectId: "trainschedules-6b2f2",
+  storageBucket: "trainschedules-6b2f2.appspot.com",
+  messagingSenderId: "696583179716"
 };
 firebase.initializeApp(config);
-
+// 
 var database = firebase.database();
 
 // 2. Current time
@@ -26,12 +26,18 @@ $("#add-train-btn").on("click", function (event) {
   // Creates local "temporary" object for holding train data
   var newTrain = {
     name: trainName,
-    role: trainDestination,
-    start: firstTrainTime,
-    rate: trainFrequency,
+    destination: trainDestination,
+    firstTrain: firstTrainTime,
+    frequency: trainFrequency,
   };
 
   //Uploads train to data to the database
   database.ref().push(newTrain);
-  alert("Train added")
-})
+  
+console.log(newTrain.name);
+console.log(newTrain.destination);
+console.log(newTrain.firstTrain);
+console.log(newTrain.frequency);
+
+alert("Train added");
+});
