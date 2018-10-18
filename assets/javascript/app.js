@@ -54,16 +54,26 @@ $("#add-train-btn").on("click", function (event) {
 
 //Create data base event for adding trains to the database
 database.ref().on("child_added", function (childSnapshot) {
-  console.log(childSnapshot.val());
+  var csv = childSnapshot.val();
 
   // Log everything that's coming out of snapshot
-  console.log(childSnapshot.val().name);
-  console.log(childSnapshot.val().destination);
-  console.log(childSnapshot.val().firstTrain);
-  console.log(childSnapshot.val().frequency);
-});
+  console.log(csv.name);
+  console.log(csv.destination);
+  console.log(csv.firstTrain);
+  console.log(csv.frequency);
 
-dataRef.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot) {
+  // Change the HTML to reflect
+  $("#name-display").text(csv.name);
+  $("#destination-display").text(csv.destination);
+  $("#firstTrain-display").text(csv.firstTrain);
+  $("#frequency-display").text(csv.frequency);
+
+  // Handle the errors
+}, function(errorObject) {
+  console.log("Errors handled: " + errorObject.code);
+},
+
+  dataRef.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot) {
   // Change the HTML to reflect
   $("#name-display").text(snapshot.val().trainName);
   $("#destination-display").text(snapshot.val().trainDestination);
@@ -111,8 +121,11 @@ var newRow = $("<tr>").append(
   $("<td>").text(trainDestination),
   $("<td>").text(firstTrainTime),
   $("<td>").text(trainFrequency),
+  $("<td>").text(moment(nextTrain).format("HH:mm")),
+  $("<td>").text(tMinutesTilTrain)
 );
 
 // Append the new row to the table
 $("#train-table > tbody").append(newRow);
-});
+  })
+)
