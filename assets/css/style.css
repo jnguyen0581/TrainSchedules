@@ -11,3 +11,8 @@ td {
     font-weight: bold;
     background-color: lightblue;
 }
+
+.row {
+    text-align: center;
+    margin-left: 50px;
+}
