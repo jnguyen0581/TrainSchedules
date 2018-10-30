@@ -1,5 +1,7 @@
 body {
+    background-image: url(../images/train.jpg);
     margin: 50px; 
+    opacity: .9;
 }
 
 .card-header {
