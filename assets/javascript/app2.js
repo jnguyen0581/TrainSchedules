@@ -20,7 +20,7 @@ $("#add-train-btn").on("click", function (event) {
     // Grabs train input
     var name = $("#name").val().trim();
     var destination = $("#destination").val().trim();
-    var first = $("#first").val().trim();
+    var first = moment($("#first").val().trim(), "HH:mm").format("X");
     var frequency = $("#frequency").val().trim();
 
     // console.log(name, destination, first, frequency);
@@ -31,7 +31,7 @@ $("#add-train-btn").on("click", function (event) {
         destination: destination,
         first: first,
         frequency: frequency,
-        dateAdded: firebase.database.ServerValue.TIMESTAMP
+        // dateAdded: firebase.database.ServerValue.TIMESTAMP
 
     });
 
@@ -53,43 +53,20 @@ database.ref().on("child_added", function (childsnapshot) {
     var destinationCol = childsnapshot.val().destination;
     var first = childsnapshot.val().first;
     var frequencyCol = childsnapshot.val().frequency;
-    // var nextArrivalCol = $("<div>").addClass("col-2").text(snapshot.val().nextArrival);
-    // var arriveCol = $("<div>").addClass("col-2").text(snapshot.val().arrive);
-
-    // newRow.append(nameCol, destinationCol, first, frequencyCol, nextArrivalCol, arriveCol);
-    // $("#train").append(newRow);
-
-
-
-    // First Time (pushed back 1 year to make sure it comes before current time)
-    // var firstTimeConverted = moment(first, "HH:mm").subtract(1, "years");
-    //     console.log(firstTimeConverted);
 
     // Current Time
     var currentTime = moment();
     console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
 
 
-    // //Prettify the train start
-    // var firstTrainPretty = moment.unix(first).format("HH:mm");
-
-    //To Calculate minutes train runs since last time
-
-    var frequencyCol = moment().diff(moment(first, "X"), "minutes");
-
-
     /// Difference between the times
     var diffTime = moment().diff(moment.unix(first), "minutes") % frequencyCol;
     // console.log("DIFFERENCE IN TIME: " + diffTime);
 
-    // Time apart (remainder) IMPORTANT
-    // var tRemainder = diffTime % frequencyCol;
-    // console.log(tRemainder);
-
+  
     // Minute Until Train IMPORTANT
     var tMinutesTillTrain = frequencyCol - diffTime;
-    // $("#train").append(newRow);
-    // console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+ 
 
     // Next Train
     var arrive = moment().add(tMinutesTillTrain, "minutes").format("HH:mm");
@@ -100,7 +77,6 @@ database.ref().on("child_added", function (childsnapshot) {
         $("<td>").text(nameCol),
         $("<td>").text(destinationCol),
         $("<td>").text(frequencyCol),
-        // $("<td>").text(firstTrainPretty),
         $("<td>").text(arrive),
         $("<td>").text(tMinutesTillTrain)
     );
